@@ -138,47 +138,47 @@ const u16 sinwave[] = {
 
  void main(void)
  {
-	 /* init clocks */
-	 RCC_init();
+   /* init clocks */
+   RCC_init();
 
-	 RCC_setClockPrescaler(RCC_PCLK1, RCC_APB_PRESCALER_AHB_DIV2);
-	 RCC_setClockPrescaler(RCC_PCLK2, RCC_APB_PRESCALER_AHB_DIV2);
+   RCC_setClockPrescaler(RCC_PCLK1, RCC_APB_PRESCALER_AHB_DIV2);
+   RCC_setClockPrescaler(RCC_PCLK2, RCC_APB_PRESCALER_AHB_DIV2);
 
-	 RCC_setClockState(RCC_CLOCK_HSE, 1);
-	 RCC_setPLLHSEdiv2(0);
-	 RCC_setPLLmul(RCC_PLL_MUL5); /* 40MHz */
-	 RCC_setPLLsource(RCC_PLL_SOURCE_HSE);
-	 RCC_setClockState(RCC_CLOCK_PLL, 1);
-	 RCC_changeSysClock(RCC_CLOCK_PLL);
+   RCC_setClockState(RCC_CLOCK_HSE, 1);
+   RCC_setPLLHSEdiv2(0);
+   RCC_setPLLmul(RCC_PLL_MUL5); /* 40MHz */
+   RCC_setPLLsource(RCC_PLL_SOURCE_HSE);
+   RCC_setClockState(RCC_CLOCK_PLL, 1);
+   RCC_changeSysClock(RCC_CLOCK_PLL);
 
-	 /* enable clocks for ports A & B */
-	 RCC_setPeripheralClock(RCC_BUS_APB2, RCC_PERI_GPIOA, 1);
-	 RCC_setPeripheralClock(RCC_BUS_APB2, RCC_PERI_GPIOB, 1);
+   /* enable clocks for ports A & B */
+   RCC_setPeripheralClock(RCC_BUS_APB2, RCC_PERI_GPIOA, 1);
+   RCC_setPeripheralClock(RCC_BUS_APB2, RCC_PERI_GPIOB, 1);
 
-	 DAC_Init(0, port_pin, 8);
+   DAC_Init(0, port_pin, 8);
 
-	 SysTick_init();
+   SysTick_init();
 
-	 /* freq = 5MHz, tick = 0.2us */
-    SysTick_setClockSource(SYSTICK_CLOCK_SOURCE_AHB_DIV8);
+   /* freq = 5MHz, tick = 0.2us */
+   SysTick_setClockSource(SYSTICK_CLOCK_SOURCE_AHB_DIV8);
 
-	 /* 1ms ==> ~10Hz triangle wave */
-    SysTick_registerCallBack(dac_triangleWave_cb);
-	 SysTick_setLoadVal(5000 - 1);
+   /* 1ms ==> ~10Hz triangle wave */
+   SysTick_registerCallBack(dac_triangleWave_cb);
+   SysTick_setLoadVal(5000 - 1);
 
-	 /* 1ms ==> ~10Hz sin wave */
-    //SysTick_registerCallBack(dac_sinWave_cb);
-	 //SysTick_setLoadVal(5000 - 1);
+   /* 1ms ==> ~10Hz sin wave */
+   //SysTick_registerCallBack(dac_sinWave_cb);
+   //SysTick_setLoadVal(5000 - 1);
 
-	 SysTick_setINTstate(1);
-	 SysTick_setEnableState(1);
+   SysTick_setINTstate(1);
+   SysTick_setEnableState(1);
 
-	 //DAC_WriteValue(0, 2*19859); // 2v
+   //DAC_WriteValue(0, 2*19859); // 2v
 
-	 while (1)
-	 {
+   while (1)
+   {
 
-	 }
+   }
  }
 
  void dac_triangleWave_cb(u32 val) /* 10 Hz signal, 1000Hz sampling */
